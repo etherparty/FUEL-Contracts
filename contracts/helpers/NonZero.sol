@@ -20,14 +20,4 @@ contract NonZero {
         _;
     }
 
-    // prevents short address attack
-    // standard size = 2 * 32
-    modifier onlyPayloadSize(uint size) { // NEVER USED
-	// we assert the msg data is greater than or equal to, because
-	// a multisgi wallet will be greater than standard payload size of 64 bits
-    assert(msg.data.length >= size + 4);
-     _;
-   } 
-
-
 }
