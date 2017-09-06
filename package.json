@@ -1,0 +1,29 @@
+{
+  "name": "truffle-init-webpack",
+  "version": "0.0.1",
+  "description": "Frontend example using truffle v3",
+  "scripts": {
+    "start": "nodemon -V --ignore 'client/*' server/app.js --exec babel-node --presets es2017"
+  },
+  "author": "Douglas von Kohorn",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-runtime": "^6.22.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "solidity-coverage": "^0.2.1",
+    "truffle-contract": "^1.1.6",
+    "web3": "^0.18.2"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "jquery-countdown": "^2.2.0",
+    "zeppelin-solidity": "^1.2.0",
+    "svg-captcha": "^1.3.11"
+  }
+}
