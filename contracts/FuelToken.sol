@@ -14,7 +14,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
     string public constant name = "Fuel Token";
     string public constant symbol = "FUEL";
 
-    uint public decimals = 18;
+    uint8 public decimals = 18;
     
     // Mapping to keep user's balances
     mapping (address => uint256) balances;
