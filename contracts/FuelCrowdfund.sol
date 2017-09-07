@@ -53,7 +53,7 @@ contract FuelCrowdfund is NonZero, Ownable {
     function FuelCrowdfund(address _tokenAddress) {
         wallet = 0x854f7424b2150bb4c3f42f04dd299318f84e98a5;    // Etherparty Wallet Address
         startsAt = 1505458800;                                  // Sept 15 2017
-        endsAt = 1507852969;                                    // ~4 weeks / 28 days later: Oct 13, 00:00:00 UTC 2017
+        endsAt = 1507852800;                                    // ~4 weeks / 28 days later: Oct 13, 00:00:00 UTC 2017
         tokenAddress = _tokenAddress;                           // FUEL token Address
         token = FuelToken(tokenAddress);
     }
