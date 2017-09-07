@@ -5,7 +5,7 @@ import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 import 'zeppelin-solidity/contracts/token/ERC20.sol';
 import "./helpers/NonZero.sol";
 
-// ROPSTEN: 0xe3af48b9cc5a7a6221c860a2e0f746f6ee39ac2e
+
 contract FuelToken is ERC20, Ownable, NonZero {
 
     using SafeMath for uint;
