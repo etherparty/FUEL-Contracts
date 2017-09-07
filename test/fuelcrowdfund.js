@@ -22,6 +22,9 @@ contract('FuelCrowdfund', function(accounts) {
   const vanbexTeamAccount = accounts[1];
   const buyerAddress = accounts[3];
   const gasAmount = 4612386;
+  const proxyBuyer = accounts[4];
+  const endBuyer = accounts[5]
+
 
   it("function(): it accepts 1 ether and buys correct fuel at relevant times of ICO", async () =>  {
 
@@ -38,6 +41,13 @@ contract('FuelCrowdfund', function(accounts) {
     await web3.eth.sendTransaction({from: buyerAddress, to: crowdfund.address, gas: gasAmount, value: web3.toWei("1", "Ether")}); // send in 1
     const firstBalance = await token.balanceOf.call(buyerAddress, {from: buyerAddress, gas: gasAmount});
     assert.equal(fromBigNumberWeiToEth(firstBalance), 3000, "The balance of the buyer was not incremented by 3000 FUEL");
+
+    await crowdfund.buyTokens(endBuyer, {from: proxyBuyer, gas: gasAmount, value: web3.toWei("1", "Ether")}); // send in 1
+    const endBuyerBalance = await token.balanceOf.call(endBuyer, {from: buyerAddress, gas: gasAmount});
+    const proxyBuyerBalance = await token.balanceOf.call(proxyBuyer, {from: buyerAddress, gas: gasAmount});
+    assert.equal(fromBigNumberWeiToEth(endBuyerBalance), 3000, "The balance of the end buyer was not incremented by 3000 FUEL");
+    assert.equal(fromBigNumberWeiToEth(proxyBuyerBalance), 0, "The balance of the proxy is not 0");
+  
   
     // advance time
     const oneWeekInSeconds = 604800;
@@ -59,7 +69,7 @@ contract('FuelCrowdfund', function(accounts) {
     assert.equal(fromBigNumberWeiToEth(fourthBalance) - fromBigNumberWeiToEth(thirdBalance), 1275, "The balance of the buyer was not incremented by 1275 FUEL");
 
     const weiRaised = await crowdfund.weiRaised.call({from: buyerAddress, gas: gasAmount});
-    assert.equal(weiRaised.dividedBy(new BigNumber(10).pow(18)).toNumber(), 4, "The contract ether balance was not 4 ETH");
+    assert.equal(weiRaised.dividedBy(new BigNumber(10).pow(18)).toNumber(), 5, "The contract ether balance was not 5 ETH");
 
   });
 
@@ -91,7 +101,7 @@ contract('FuelCrowdfund', function(accounts) {
 
   });
 
-  it("changeWalletAddress(): can close a crowdsale, and only vanbex can do it", async () => {
+  it("changeWalletAddress(): can change wallet address, and only vanbex can do it", async () => {
     const token = await FuelToken.new({from: vanbexAddress, gas: gasAmount});
     const crowdfund = await FuelCrowdfund.new(token.address, {from: vanbexAddress, gas: gasAmount});
     
