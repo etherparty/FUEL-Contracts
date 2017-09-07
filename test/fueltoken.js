@@ -281,25 +281,4 @@ contract('FuelToken', function(accounts) {
 
   });
 
-  it("transferFromPlatform(): it only lets the etherparty address transfer from the platform address", async () => {
-    const token = await FuelToken.new({from: vanbexAddress});
-    const etherpartyAddress = accounts[7];
-    const amount = 1000000000000000000;
-    const platformAddress = await token.platformAddress.call();
-    await token.setEtherpartyAddress(etherpartyAddress);
-    
-    try {
-      await token.transferFromPlatform(buyerAddress, amount, {from: buyerAddresst});
-    } catch(e) {
-      assert(true, true);
-    }
-
-    const initialPlatformBalance = await token.balanceOf(platformAddress);
-    await token.transferFromPlatform(buyerAddress, amount, {from: etherpartyAddress});
-    const newPlatformBalance = await token.balanceOf(platformAddress);
-
-    assert.equal(fromBigNumberWeiToEth(initialPlatformBalance) - fromBigNumberWeiToEth(newPlatformBalance), 1, "The platform balance wasn't decremented by the specifeid amount");
-
-  });
-
 });

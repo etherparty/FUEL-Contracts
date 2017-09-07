@@ -69,11 +69,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
 
 /////////////////////// MODIFIERS ///////////////////////
 
-    // Ensure only EP address can call the function
-    modifier onlyEtherparty() {
-        require(msg.sender == etherpartyAddress);
-        _;
-    }
     // Ensure actions can only happen after crowdfund ends
     modifier notBeforeCrowdfundEnds(){
         require(now >= crowdfundEndsAt);
@@ -179,17 +174,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
         Transfer(crowdfundAddress, _to, _amount);
         return true;
     }
-
-    // Function for EP to sell FUEL tokens in-app
-    function transferFromPlatform(address _to, uint256 _amount) onlyEtherparty nonZeroAmount(_amount) nonZeroAddress(_to) returns (bool success) {
-        // assert the crowdfund has enough to send
-        assert(balanceOf(platformAddress) >= _amount);
-        decrementBalance(platformAddress, _amount); // decrement the platform's fuel
-        addToBalance(_to, _amount); // increment recipient's fuel
-        Transfer(platformAddress, _to, _amount); // send transfer event
-        return true;
-    }
-
 
     // Release Vanbex team supply after vesting period is finished.
     function releaseVanbexTeamTokens() checkVanbexTeamVestingPeriod onlyOwner returns(bool success) {
