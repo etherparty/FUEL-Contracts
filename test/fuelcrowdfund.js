@@ -74,6 +74,17 @@ contract('FuelCrowdfund', function(accounts) {
 
   });
 
+  it("buyTokens(): it forwards the tokens to the specified address", async () =>  {
+    const token = await FuelToken.new({from: vanbexAddress, gas: gasAmount});
+    const crowdfund = await FuelCrowdfund.new(token.address, {from: vanbexAddress, gas: gasAmount});
+    const price = await crowdfund.getIcoPrice.call();
+    await token.setCrowdfundAddress(crowdfund.address, {from: vanbexAddress, gas: gasAmount});
+    const receivingAddress = accounts[3];
+    await crowdfund.buyTokens(receivingAddress, {from: buyerAddress, gas: gasAmount, value: web3.toWei("1", "Ether")});
+    const balance = await token.balanceOf.call(receivingAddress);
+    assert.equal(fromBigNumberWeiToEth(balance), price.toNumber(), `${price.toNumber()} FUEL was not in the recipients address`);
+  });
+
   it("closeCrowdfund(): can close a crowdsale, and only vanbex can do it", async () => {
 
     const oneWeekInSeconds = 604800;
@@ -205,9 +216,7 @@ contract('FuelToken', function(accounts) {
     assert.equal(fromBigNumberWeiToEth(balance), 100000000, "100000000 was not allocated to the incentivsing efforts address");
   });
 
-
   // // SUPPLY
-
 
   it("totalAllocatedTokens: it should have 15% allocated after all the addresses have been set", function(done) {
     
