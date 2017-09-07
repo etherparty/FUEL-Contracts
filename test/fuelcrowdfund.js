@@ -239,7 +239,7 @@ contract('FuelToken', function(accounts) {
     }).catch(done);
   });
 
-  it("icoSupply: should put 50% of the public tokens (260,000,000) in the icoSupply", function(done) {
+  it("icoSupply: should put 260,000,000 FUEL in the icoSupply", function(done) {
     
       FuelToken.new({from: vanbexAddress, gas: 4612386})
     .then(function(tokenInstance) {
@@ -250,7 +250,7 @@ contract('FuelToken', function(accounts) {
     }).catch(done);
   });
 
-  it("presaleSupply: should put 50% of the public tokens (540,000,000) in the presaleSupply", function(done) {
+  it("presaleSupply: should put 540,000,000 FUEL in the presaleSupply", function(done) {
     
     FuelToken.new({from: vanbexAddress, gas: 4612386})
     .then(function(tokenInstance) {
