@@ -213,7 +213,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
     // his contribution will be aggregated
     function deliverPresaleFuelBalance(address _accountHolder, uint _amountOfBoughtFuel) internal onlyOwner {
         addToBalance(_accountHolder, _amountOfBoughtFuel);
-        Transfer(this, _accountHolder, _amountOfBoughtFuel);
+        Transfer(0x0, _accountHolder, _amountOfBoughtFuel);
         presaleAmountRemaining = presaleAmountRemaining.sub(_amountOfBoughtFuel);    
     }
 
