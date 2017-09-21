@@ -22,8 +22,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
 
 /////////////////////// VARIABLE INITIALIZATION ///////////////////////
     
-    // Total FUEL allocated at a given time
-    uint256 public totalAllocatedTokens;
     // Allocation for the Vanbex Team
     uint256 public vanbexTeamSupply;
     // Etherparty platform supply
@@ -147,9 +145,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
 
         addToBalance(incentivisingEffortsAddress, incentivisingEffortsSupply);     
         addToBalance(platformAddress, platformSupply);                              
-
-        allocateTokens(incentivisingEffortsSupply);
-        allocateTokens(platformSupply);
     }
 
     // Sets the crowdfund address, can only be done once
@@ -169,7 +164,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
         require(balanceOf(crowdfundAddress) >= _amount);
         decrementBalance(crowdfundAddress, _amount);
         addToBalance(_to, _amount);
-        allocateTokens(_amount);
         Transfer(crowdfundAddress, _to, _amount);
         return true;
     }
@@ -179,7 +173,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
         require(vanbexTeamSupply > 0);
         addToBalance(vanbexTeamAddress, vanbexTeamSupply);
         Transfer(0x0, vanbexTeamAddress, vanbexTeamSupply);
-        allocateTokens(vanbexTeamSupply);
         vanbexTeamSupply = 0;
         return true;
     }
@@ -224,8 +217,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
     function deliverPresaleFuelBalance(address _accountHolder, uint _amountOfBoughtFuel) internal onlyOwner {
         addToBalance(_accountHolder, _amountOfBoughtFuel);
         Transfer(this, _accountHolder, _amountOfBoughtFuel);
-        presaleAmountRemaining = presaleAmountRemaining.sub(_amountOfBoughtFuel);
-        allocateTokens(_amountOfBoughtFuel);        
+        presaleAmountRemaining = presaleAmountRemaining.sub(_amountOfBoughtFuel);    
     }
 
     // Add to balance
@@ -236,11 +228,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
     // Remove from balance
     function decrementBalance(address _address, uint _amount) internal {
     	balances[_address] = balances[_address].sub(_amount);
-    }
-
-    // Add to totalAllocatedTokens
-    function allocateTokens(uint _amount) internal {
-    	totalAllocatedTokens = totalAllocatedTokens.add(_amount);
     }
 
     // Reject any value transfer to this contract
