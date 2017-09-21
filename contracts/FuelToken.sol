@@ -100,8 +100,8 @@ contract FuelToken is ERC20, Ownable, NonZero {
     // Transfer from one address to another (need allowance to be called first)
     function transferFrom(address _from, address _to, uint256 _amount) notBeforeCrowdfundEnds nonZeroAmount(_amount) returns (bool success) {
         require(allowance(_from, msg.sender) >= _amount);
-        addToBalance(_to, _amount);
         decrementBalance(_from, _amount);
+        addToBalance(_to, _amount);
         allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_amount);
         Transfer(_from, _to, _amount);
         return true;
