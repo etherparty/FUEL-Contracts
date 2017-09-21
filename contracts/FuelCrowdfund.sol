@@ -43,6 +43,13 @@ contract FuelCrowdfund is NonZero, Ownable {
         _;
     }
 
+    // Ensure actions can only happen after crowdfund ends
+    modifier notBeforeCrowdfundEnds(){
+        require(now >= endsAt);
+        _;
+    }
+
+
 /////////////////////// CROWDFUND FUNCTIONS ///////////////////////
     
     // Constructor
@@ -75,7 +82,7 @@ contract FuelCrowdfund is NonZero, Ownable {
     }
 
     // Function to close the crowdfund. Any unsold FUEL will go to the platform to be sold at 1$
-    function closeCrowdfund() external onlyOwner returns (bool success) {
+    function closeCrowdfund() external notBeforeCrowdfundEnds onlyOwner returns (bool success) {
         AmountRaised(wallet, weiRaised);
         token.finalizeCrowdfund();
         return true;
