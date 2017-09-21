@@ -178,7 +178,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
     function releaseVanbexTeamTokens() checkVanbexTeamVestingPeriod onlyOwner returns(bool success) {
         require(vanbexTeamSupply > 0);
         addToBalance(vanbexTeamAddress, vanbexTeamSupply);
-        Transfer(this, vanbexTeamAddress, vanbexTeamSupply);
+        Transfer(0x0, vanbexTeamAddress, vanbexTeamSupply);
         allocateTokens(vanbexTeamSupply);
         vanbexTeamSupply = 0;
         return true;
