@@ -5,7 +5,6 @@ import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 import 'zeppelin-solidity/contracts/token/ERC20.sol';
 import "./helpers/NonZero.sol";
 
-
 contract FuelToken is ERC20, Ownable, NonZero {
 
     using SafeMath for uint;
@@ -200,7 +199,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
 
     // Finalize crowdfund. If there are leftover FUEL, let them overflow to the be sold at 1$ on the platform
     function finalizeCrowdfund() external onlyCrowdfund notBeforeCrowdfundEnds returns (bool success) {
-        require(crowdfundFinalized == false);
+        require(presaleFinalized == true && crowdfundFinalized == false);
         uint256 amount = balanceOf(crowdfundAddress);
         if (amount > 0) {
             balances[crowdfundAddress] = 0;
@@ -224,7 +223,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
     // All presale purchases will be delivered. If one address has contributed more than once,
     // his contribution will be aggregated
     function deliverPresaleFuelBalance(address _accountHolder, uint _amountOfBoughtFuel) internal onlyOwner {
-        require(balanceOf(_accountHolder) == 0 && presaleAmountRemaining > 0); 
+        require(presaleAmountRemaining > 0); 
         addToBalance(_accountHolder, _amountOfBoughtFuel);
         Transfer(this, _accountHolder, _amountOfBoughtFuel);
         presaleAmountRemaining = presaleAmountRemaining.sub(_amountOfBoughtFuel);
