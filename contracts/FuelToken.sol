@@ -58,9 +58,9 @@ contract FuelToken is ERC20, Ownable, NonZero {
 /////////////////////// EVENTS ///////////////////////
 
     // Event called when crowdfund is done
-    event CrowdfundFinalized(uint tokens);
+    event CrowdfundFinalized(uint tokensRemaining);
     // Event called when presale is done
-    event PresaleFinalized(uint tokens);
+    event PresaleFinalized(uint tokensRemaining);
 
 /////////////////////// MODIFIERS ///////////////////////
 
