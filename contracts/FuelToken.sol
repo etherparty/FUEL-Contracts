@@ -226,9 +226,4 @@ contract FuelToken is ERC20, Ownable, NonZero {
     function decrementBalance(address _address, uint _amount) internal {
     	balances[_address] = balances[_address].sub(_amount);
     }
-
-    // Reject any value transfer to this contract
-    function () {
-        revert();
-    }
 }
