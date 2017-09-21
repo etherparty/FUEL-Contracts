@@ -47,8 +47,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
     address public platformAddress;
     // Community incentivisation address
     address public incentivisingEffortsAddress;
-    // Etherparty Address
-    address public etherpartyAddress;
 
     // Flag keeping track of presale status. Ensures functions can only be called once
     bool public presaleFinalized = false;
@@ -149,11 +147,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
         require(crowdfundAddress == 0x0);
         crowdfundAddress = _crowdfundAddress;
         addToBalance(crowdfundAddress, icoSupply); 
-    }
-
-    // Sets the Etherparty address
-    function setEtherpartyAddress(address _etherpartyAddress) external onlyOwner nonZeroAddress(_etherpartyAddress) {
-        etherpartyAddress = _etherpartyAddress;  
     }
 
     // Function for the Crowdfund to transfer tokens
