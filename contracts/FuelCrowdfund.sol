@@ -65,7 +65,7 @@ contract FuelCrowdfund is NonZero, Ownable {
     // it to another destination.
     function buyTokens(address _to) crowdfundIsActive nonZeroAddress(_to) nonZeroValue payable {
         uint256 weiAmount = msg.value;
-        uint256 tokens = weiAmount * getIcoPrice();
+        uint256 tokens = weiAmount * getRate();
         weiRaised = weiRaised.add(weiAmount);
         wallet.transfer(weiAmount);
         if (!token.transferFromCrowdfund(_to, tokens)) {
@@ -84,7 +84,7 @@ contract FuelCrowdfund is NonZero, Ownable {
 /////////////////////// CONSTANT FUNCTIONS ///////////////////////
 
     // Returns FUEL disbursed per 1 ETH depending on current time
-    function getIcoPrice() public constant returns (uint price) {
+    function getRate() public constant returns (uint price) {
         if (now > (startsAt + 3 weeks)) {
            return 1275; // week 4
         } else if (now > (startsAt + 2 weeks)) {

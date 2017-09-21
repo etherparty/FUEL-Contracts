@@ -77,7 +77,7 @@ contract('FuelCrowdfund', function(accounts) {
   it("buyTokens(): it forwards the tokens to the specified address", async () =>  {
     const token = await FuelToken.new({from: vanbexAddress, gas: gasAmount});
     const crowdfund = await FuelCrowdfund.new(token.address, {from: vanbexAddress, gas: gasAmount});
-    const price = await crowdfund.getIcoPrice.call();
+    const price = await crowdfund.getRate.call();
     await token.setCrowdfundAddress(crowdfund.address, {from: vanbexAddress, gas: gasAmount});
     const receivingAddress = accounts[3];
     await crowdfund.buyTokens(receivingAddress, {from: buyerAddress, gas: gasAmount, value: web3.toWei("1", "Ether")});
