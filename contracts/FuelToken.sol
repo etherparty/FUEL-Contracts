@@ -198,7 +198,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
     }
 
     // Finalize crowdfund. If there are leftover FUEL, let them overflow to the be sold at 1$ on the platform
-    function finalizeCrowdfund() external onlyCrowdfund notBeforeCrowdfundEnds returns (bool success) {
+    function finalizeCrowdfund() external onlyCrowdfund notBeforeCrowdfundEnds {
         require(presaleFinalized == true && crowdfundFinalized == false);
         uint256 amount = balanceOf(crowdfundAddress);
         if (amount > 0) {
@@ -208,7 +208,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
         }
         crowdfundFinalized = true;
         CrowdfundFinalized(amount);
-        return true;
     }
 
 
