@@ -67,7 +67,7 @@ contract FuelCrowdfund is NonZero, Ownable {
 
     // Function to buy Fuel. One can also buy FUEL by calling this function directly and send 
     // it to another destination.
-    function buyTokens(address _to) crowdfundIsActive nonZeroAddress(_to) payable {
+    function buyTokens(address _to) crowdfundIsActive nonZeroAddress(_to) nonZeroValue payable {
         uint256 weiAmount = msg.value;
         uint256 tokens = weiAmount * getIcoPrice();
         weiRaised = weiRaised.add(weiAmount);
@@ -102,7 +102,7 @@ contract FuelCrowdfund is NonZero, Ownable {
 
     // To contribute, send a value transaction to the Crowdfund Address.
     // Please include at least 100 000 gas.
-    function () payable nonZeroValue {
+    function () payable {
         buyTokens(msg.sender);
     }
 }
