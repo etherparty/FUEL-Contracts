@@ -3,11 +3,7 @@ pragma solidity ^0.4.15;
 import 'zeppelin-solidity/contracts/math/SafeMath.sol';
 import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 import "./helpers/NonZero.sol";
-
-contract FuelToken {    
-    function transferFromCrowdfund(address _to, uint256 _amount) returns (bool success);
-    function finalizeCrowdfund() returns (bool success);
-}
+import "./FuelToken.sol";
 
 contract FuelCrowdfund is NonZero, Ownable {
     
