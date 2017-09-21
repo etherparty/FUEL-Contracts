@@ -26,8 +26,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
     uint256 public vanbexTeamSupply;
     // Etherparty platform supply
     uint256 public platformSupply;
-    // Total amount of Public FUEL that will be allocated
-    uint256 public amountOfPublicTokensToAllocate;
     // Amount of FUEL for the presale
     uint256 public presaleSupply;
     // Amount of presale tokens remaining at a given time
@@ -137,7 +135,6 @@ contract FuelToken is ERC20, Ownable, NonZero {
         presaleSupply = 54 * 10**25;                                                // 540,000,000 fuel tokens available for presale with overflow for bonus included
         icoSupply = 26 * 10**25;                                                    // 260 million fuel tokens for ico with potential for extra after finalizing presale
        
-        amountOfPublicTokensToAllocate = presaleSupply + icoSupply;                 // Total amount of tokens available to the public
         presaleAmountRemaining = presaleSupply;                                     // Decreased over the course of the pre-sale
         vanbexTeamAddress = 0x413ea1484137526f3b1bd412e2f897c94c8e198d;             // Vanbex Team Address
         platformAddress = 0xa1602060f4630ef560009a3377a6b788d2b90484;               // Platform Address
