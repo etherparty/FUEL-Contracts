@@ -161,7 +161,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
         require(balanceOf(crowdfundAddress) >= _amount);
         decrementBalance(crowdfundAddress, _amount);
         addToBalance(_to, _amount);
-        Transfer(crowdfundAddress, _to, _amount);
+        Transfer(0x0, _to, _amount);
         return true;
     }
 
