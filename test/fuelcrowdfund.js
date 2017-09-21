@@ -92,6 +92,7 @@ contract('FuelCrowdfund', function(accounts) {
     const token = await FuelToken.new({from: vanbexAddress, gas: gasAmount});
     const crowdfund = await FuelCrowdfund.new(token.address, {from: vanbexAddress, gas: gasAmount});
     await token.setCrowdfundAddress(crowdfund.address, {from: vanbexAddress, gas: gasAmount});
+    await token.finalizePresale({from: vanbexAddress, gas: gasAmount});
     const platformAddress = await token.platformAddress.call();
     
 
@@ -116,7 +117,6 @@ contract('FuelCrowdfund', function(accounts) {
   it("changeWalletAddress(): can change wallet address, and only vanbex can do it", async () => {
     const token = await FuelToken.new({from: vanbexAddress, gas: gasAmount});
     const crowdfund = await FuelCrowdfund.new(token.address, {from: vanbexAddress, gas: gasAmount});
-    
     await token.setCrowdfundAddress(crowdfund.address, {from: vanbexAddress, gas: gasAmount});
     const currentWallet = await crowdfund.wallet.call();
     const walletAddress = accounts[7];
@@ -217,27 +217,6 @@ contract('FuelToken', function(accounts) {
   });
 
   // // SUPPLY
-
-  it("totalAllocatedTokens: it should have 15% allocated after all the addresses have been set", function(done) {
-    
-    FuelToken.new({from: vanbexAddress, gas: 4612386})
-    .then(function(tokenInstance) {
-      return tokenInstance.totalAllocatedTokens.call({from: buyerAddress, gas: 4612386});
-    }).then(function(supply) {
-      assert.equal(fromBigNumberWeiToEth(supply), 150000000, "150000000 was not allocated as the initial totalAllocatedTokens");
-      done();
-    }).catch(done);
-  });
-  
-  it("amountOfPublicTokensToAllocate: allocate 80% of the tokens (800,000,000) FuelToken", function(done) {
-    FuelToken.new({from: vanbexAddress, gas: 4612386})
-    .then(function(tokenInstance) {
-      return tokenInstance.amountOfPublicTokensToAllocate.call({from: buyerAddress, gas: 4612386});
-    }).then(function(supply) {
-      assert.equal(fromBigNumberWeiToEth(supply), 800000000, "800000000 wasn not the amountOfPublicTokensToAllocate");
-      done();
-    }).catch(done);
-  });
 
   it("icoSupply: should put 260,000,000 FUEL in the icoSupply", function(done) {
     
