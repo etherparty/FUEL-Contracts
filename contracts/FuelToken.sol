@@ -123,7 +123,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
 
     // Constructor
     function FuelToken() {
-        crowdfundEndsAt = 1507852800;                                               // Oct 13, 00:00:00 UTC  - 1507852800
+        crowdfundEndsAt = 1509292800;                                               // Oct 29, 9 AM PST
         vanbexTeamVestingPeriod = crowdfundEndsAt.add(183 * 1 days);                // 6 months vesting period
 
         totalSupply = 1 * 10**27;                                                   // 100% - 1 billion total FUEL tokens with 18 decimals

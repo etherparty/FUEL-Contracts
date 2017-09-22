@@ -8,17 +8,23 @@ module.exports = {
     	port: 8545,
     	network_id: '*',
     	gas: 4612386
-    },
+    }, 
     ropsten: {
       host: 'https://ropsten.infura.io/VYHM28f6EsD7dSXSHcmM',
       port: 8545,
-      network_id: 3, // Match any network id,
+      network_id: 3,
       gas: 4612386
+    },
+    rinkeby: {
+      host: 'localhost',
+      port: 8545,
+      gas: 4612386,
+      network_id: 4
     },
     live: {
       host: 'localhost',
       port: 8545,
-      network_id: 1 // Match any network id,
+      network_id: 1
     }
   }
 }
