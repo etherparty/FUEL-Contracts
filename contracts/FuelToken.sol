@@ -134,9 +134,9 @@ contract FuelToken is ERC20, Ownable, NonZero {
         icoSupply = 26 * 10**25;                                                    // 260 million fuel tokens for ico with potential for extra after finalizing presale
        
         presaleAmountRemaining = presaleSupply;                                     // Decreased over the course of the pre-sale
-        vanbexTeamAddress = 0x413ea1484137526f3b1bd412e2f897c94c8e198d;             // Vanbex Team Address
-        platformAddress = 0xa1602060f4630ef560009a3377a6b788d2b90484;               // Platform Address
-        incentivisingEffortsAddress = 0xc82fe29c67e63df7a09902140c5354fd6279c86c;   // Community incentivisation address
+        vanbexTeamAddress = 0xCF701D8eA4C727466D42651dda127c0c033076B0;             // Vanbex Team Address
+        platformAddress = 0xF5b5f6c1E233671B220C2A19Af10Fd18785D0744;               // Platform Address
+        incentivisingEffortsAddress = 0x5584b17B40F6a2E412e65FcB1533f39Fc7D8Aa26;   // Community incentivisation address
 
         addToBalance(incentivisingEffortsAddress, incentivisingEffortsSupply);     
         addToBalance(platformAddress, platformSupply);                              
